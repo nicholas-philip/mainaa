@@ -7,6 +7,7 @@ import ScrapbookNav from './components/ScrapbookNav.jsx'
 import FallingEmojis from './components/FallingEmojis.jsx'
 import SecretNoteModal from './components/SecretNoteModal.jsx'
 import CatchMyHeartGame from './components/CatchMyHeartGame.jsx'
+import FloatingActions from './components/FloatingActions.jsx'
 import useAudio from './hooks/useAudio.js'
 import useClickBurst from './hooks/useClickBurst.jsx'
 
@@ -118,7 +119,7 @@ export default function App() {
   return (
     /* ── Outer page: soft light pink, falling emojis layer ── */
     <div
-      className="relative flex min-h-screen w-full flex-col items-center justify-center gap-3 p-0 sm:p-6 select-none"
+      className="relative flex min-h-screen w-full flex-col items-center justify-center gap-3 p-0 sm:p-6 select-none overflow-hidden"
       style={{ background: '#FFF0F3' }}
       onClick={handleClick}
     >
@@ -188,66 +189,19 @@ export default function App() {
                     onNext={goNext}
                     muted={audio.muted}
                     onToggleMute={audio.toggleMute}
-                    onShowNote={() => setShowNote(true)}
-                    onShowGame={() => setShowGame(true)}
                   />
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* ── Buttons below card (Desktop / Tablet) ── */}
-          <AnimatePresence>
-            {opened && (
-              <motion.div
-                className="relative z-10 hidden sm:flex flex-wrap items-center justify-center gap-3 mt-1"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 12 }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-              >
-                {/* Secret Note Button */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setShowNote(true)
-                  }}
-                  aria-label="Tap for a Secret Note"
-                  className="heartbeat-btn flex items-center gap-2 rounded-full px-5 py-2.5 font-display text-sm font-bold active:scale-95 cursor-pointer"
-                >
-                  <motion.span
-                    animate={{ scale: [1, 1.25, 1] }}
-                    transition={{ duration: 1.2, repeat: Infinity }}
-                  >
-                    💌
-                  </motion.span>
-                  Tap for a Secret Note
-                </button>
-
-                {/* Catch My Heart Game Button */}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setShowGame(true)
-                  }}
-                  aria-label="Play Mini Game: Catch My Heart"
-                  className="heartbeat-btn flex items-center gap-2 rounded-full px-5 py-2.5 font-display text-sm font-bold active:scale-95 cursor-pointer"
-                >
-                  <motion.span
-                    animate={{ rotate: [-10, 10, -10] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    🎮
-                  </motion.span>
-                  Play Mini Game: Catch My Heart
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-
+          {/* ── Movable, Draggable Floating Round Action Buttons (💌 Secret Note & 🎮 Mini Game) ── */}
+          {opened && (
+            <FloatingActions
+              onShowNote={() => setShowNote(true)}
+              onShowGame={() => setShowGame(true)}
+            />
+          )}
 
           {/* Secret Note Modal */}
           <SecretNoteModal open={showNote} onClose={() => setShowNote(false)} />
