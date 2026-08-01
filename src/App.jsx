@@ -188,6 +188,8 @@ export default function App() {
                     onNext={goNext}
                     muted={audio.muted}
                     onToggleMute={audio.toggleMute}
+                    onShowNote={() => setShowNote(true)}
+                    onShowGame={() => setShowGame(true)}
                   />
                 </motion.div>
               )}
@@ -245,36 +247,7 @@ export default function App() {
             )}
           </AnimatePresence>
 
-          {/* ── Floating Overlay Buttons (Mobile View) ── */}
-          <AnimatePresence>
-            {opened && (
-              <div className="absolute bottom-20 left-1/2 z-20 flex sm:hidden -translate-x-1/2 flex-col items-center gap-2">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setShowNote(true)
-                  }}
-                  aria-label="Tap for a Secret Note"
-                  className="heartbeat-btn flex items-center gap-2 rounded-full px-4 py-1.5 font-display text-xs font-bold shadow-lg"
-                >
-                  <span>💌</span> Tap for a Secret Note
-                </button>
 
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setShowGame(true)
-                  }}
-                  aria-label="Play Mini Game: Catch My Heart"
-                  className="heartbeat-btn flex items-center gap-2 rounded-full px-4 py-1.5 font-display text-xs font-bold shadow-lg"
-                >
-                  <span>🎮</span> Play Mini Game: Catch My Heart
-                </button>
-              </div>
-            )}
-          </AnimatePresence>
 
           {/* Secret Note Modal */}
           <SecretNoteModal open={showNote} onClose={() => setShowNote(false)} />
