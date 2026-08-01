@@ -10,18 +10,6 @@ export default function ScrapbookNav({
 }) {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex flex-col items-center gap-3 pb-5">
-      {/* Page dots */}
-      <div className="pointer-events-auto flex items-center gap-1.5">
-        {Array.from({ length: pageCount }).map((_, i) => (
-          <span
-            key={i}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === pageIndex ? 'w-5 bg-white' : 'w-1.5 bg-white/30'
-            }`}
-          />
-        ))}
-      </div>
-
       {/* Buttons */}
       <div className="pointer-events-auto flex items-center gap-4">
         <button
